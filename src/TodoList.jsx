@@ -10,20 +10,16 @@ function TodoList() {
 ]
 
     return (
-     
-  <div>
-    
-    <h1>Todo List</h1>
-    <TodoForm  />
-    <div>
-    
-     <ul>
-            {todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
-        </ul>
-    </div>
 
-  </div>
-);
+      <>
+      <ul>
+        {todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
+      </ul>
+    </>
+  )
+     
+ 
+
 
 
 }
