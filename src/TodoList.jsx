@@ -11,7 +11,7 @@ function TodoList({todoList}) {
 
       <>
       <ul>
-       <h1> My Todo </h1>
+       
         
         {todoList.map((todo )=>(<TodoListItem key={todo.id} todo={todo} /> ))};
       </ul>
