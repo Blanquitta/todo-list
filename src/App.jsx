@@ -4,17 +4,7 @@ import {useState} from 'react';
 import TodoForm from './TodoForm.jsx';
 import TodoList from './TodoList.jsx';
 
-  
-// //  const todoList = [
-// //     {id: 1, title: "review resources"},
-// //     {id: 2, title: "take notes"},
-// //     {id: 3, title: "code out app"},
-
-
-
-
-
-function App() {
+  function App() {
   const [todos, setTodos] = useState([]);
 
   function addTodo(todoTitle) {
@@ -30,7 +20,7 @@ function App() {
     <div>
       <h1>My Todos</h1>
 
-      <TodoForm onAddtodo={addTodo} />
+      <TodoForm onAddTodo={addTodo} />
       <TodoList todoList={todos} />
     </div>
   );

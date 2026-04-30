@@ -1,14 +1,7 @@
 
-// function TodoForm() {
-//   return ( <form>
-//       <label htmlFor="todoTitle">Todo</label>
-//       <input type="text" id="todoTitle" />
-//       <button type="submit" disabled>Add Todo</button>
-//     </form>
-//   );
-// }
+
+
 import {useRef} from 'react';
-// import TodoForm from './TodoForm.jsx';
 
 
 function TodoForm({ onAddTodo }) {
@@ -16,43 +9,16 @@ function TodoForm({ onAddTodo }) {
 
   const handleAddTodo = (event) => {
     event.preventDefault();
+    onAddTodo(inputRef.current.value);
+  };
 
   return (
-  <form>
+  <form onSubmit={handleAddTodo}>
     <label htmlFor ="todoTitle"> Todo </label>
-    <button type="submit" disabledS> Add Todo </button>
+    <input type='text'id='todotitle' ref={inputRef}/>
+    <button type="submit" > Add Todo </button>
   </form>
 );
-
-
-
-  const todoTitle = event.target.todoTitle.value.trim();
-    if (todoTitle && todoTitle !== "") {
-      onAddTodo(todoTitle);
-      event.target.reset();
-      inputRef.current.focus();
-    }
-  };
-      return (
-  <form on onSubmit={handleAddTodo}>
-    <label htmlFor="todoTitle">Todo</label>
-    <input
-      ref={inputRef}
-      type="text"
-      id="todoTitle"
-      name="todoTitle"
-      placeholder={'Todo text'}
-      required
-    />
-    <button type="submit" onClick={handleAddTodo}>
-      Add Todo
-    </button>
-  </form>
-  
-  
-
-    
-  );
 }
 
 export default TodoForm;
