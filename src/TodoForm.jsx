@@ -11,15 +11,14 @@ function TodoForm({ onAddTodo }) {
 
   const handleAddTodo = (event) => {
     event.preventDefault();
-    // onAddTodo(inputRef.current.value);
-     const handleAddTodo = (event) => {
-    event.preventDefault();
+    
+    
     
     onAddTodo(workingTodoTitle);
     setWorkingTodoTitle("");
   };
 
- };
+ 
 
   return ( 
   <form onSubmit={handleAddTodo}>
