@@ -8,12 +8,19 @@ import TodoList from './TodoList.jsx';
   const [todos, setTodos] = useState([]);
 
   function addTodo(todoTitle) {
+    const updatedTodos = todoList.map((todo) =>
+    todo.id === id
+      ? { ...todo, isCompleted: true }
+      : todo
+);
     const newTodo = {
-      id: Date.now(),
-      title: todoTitle
+      id: nextId,
+      title: todoTitle,
+      isCompleted: false,
     };
 
     setTodos(previous => [newTodo, ...previous]);
+   
   }
 
  return (
