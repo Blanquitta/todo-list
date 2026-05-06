@@ -5,16 +5,22 @@ function TodoList({ todoList }) {
 const filteredTodoList = todoList.filter(
   (todo) => !todo.isCompleted
 );
-return (
+return 
   filteredTodoList.length === 0 ? (
     <p>Add todo above to get started</p>
   ) : (
     <ul>
-      {todoList.map((todo, index) => (
-        <li key={index}>{todo}</li>
+    
+       {filteredTodoList.map((todo) => (
+        <TodoListItem
+          key={todo.id}
+          todo={todo}
+          onCompleteTodo={onCompleteTodo}
+        />
       ))}
+      
     </ul>
-  )
+  
 );
 }
 export default TodoList;
