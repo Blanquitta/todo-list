@@ -1,8 +1,9 @@
 function TodoListItem ( {todo, onCompleteTodo}) {
 
-  return <li> {todo.title} </li> 
-  return (
+  return(
+
   <li>
+    <li> {todo.title} </li> 
       <input
         type="checkbox"
         checked={todo.isCompleted}

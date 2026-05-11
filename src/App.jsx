@@ -1,8 +1,8 @@
 
 // // import './App.css'
 import {useState} from 'react'; 
-import TodoForm from './TodoForm.jsx';
-import TodoList from './TodoList.jsx';
+import TodoForm from './features/TodoList/TodoForm.jsx';
+import TodoList from './features/TodoList/TodoList.jsx';
 
 
   function App() {
@@ -11,7 +11,8 @@ import TodoList from './TodoList.jsx';
 
 function addTodo(title) {
     const newTodo = {
-      id: Date.now (),
+      id: Date.now(),
+      
       title,
       isCompleted: false,
     };
@@ -32,10 +33,13 @@ function  completeTodo(id) {
     <>
       <h1>My Todos</h1>
 
-      <TodoForm onAddTodo={addTodo} />
+      <TodoForm onAddTodo={addTodo} />;'
+      
+      
       <TodoList
-      TodoList={TodoList}
-      oncompleteTodo={completeTodo}
+      todoList={TodoList}
+      onCompleteTodo={completeTodo}
+      
       
     />
     </>
