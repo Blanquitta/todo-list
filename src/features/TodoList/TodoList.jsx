@@ -12,6 +12,11 @@ function TodoList({ todoList, onCompleteTodo }) {
       <p>Add todo above to get started</p>
     ) : (
       <ul>
+        <TodoList
+          todoList={todoList}
+           onCompleteTodo={completeTodo}
+           onUpdateTodo={updateTodo}
+        />
         {filteredTodoList.map((todo) => (
           <TodoListItem
             key={todo.id}
