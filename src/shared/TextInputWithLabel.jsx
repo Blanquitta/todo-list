@@ -1,29 +1,19 @@
 
-function TextInputWithLabel({
-  elementId,
-  labelText,
-  onChange,
-  ref,
-  value,
-}) {
+
+export default TextInputWithLabel;
+function TextInputWithLabel({ elementId, labelText, value, onChange, ref }) {
   return (
-
-
-
     <>
       <label htmlFor={elementId}>{labelText}</label>
       <input
         type="text"
         id={elementId}
-        ref={inputRef}
-        value={workingTodoTitle}
-        onChange={(e) =>setWorkingTodoTitle(e.target.value)}
+        value={value}
+        onChange={onChange}
+        ref={ref}
       />
     </>
   );
 }
-
-export default TextInputWithLabel;
-
 
 
