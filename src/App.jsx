@@ -1,9 +1,9 @@
 
-// // import './App.css'
-import {useState} from 'react'; 
-import TodoForm from './features/TodoList/TodoForm.jsx';
-import TodoList from './features/TodoList/TodoList.jsx';
+import './App.css'
 
+import { useState } from "react";
+import TodoForm from "./features/TodoForm.jsx";
+import TodoList from "./features/TodoList/todoList.jsx";
 function updateTodo(editedTodo) {
   const updatedTodos = todoList.map((todo) =>
     todo.id === editedTodo.id

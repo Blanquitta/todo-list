@@ -1,12 +1,12 @@
-import { isValidTodoTitle } from '../utils/todoValidation';
-import { useState } from "react";
-import TextInputWithLabel from "../shared/TextInputWithLabel";
+
+
+
 
 export default isValidTodoTitle;
 function isValidTodoTitle(title) {
   return title.trim() !== '';
 }
-<button disabled={!isValidTodoTitle(workingTodoTitle)}>Add Todo</button>
+/* <button disabled={!isValidTodoTitle(workingTodoTitle)}>Add Todo</button> */
 export default function TodoListItem({ todo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [workingTitle, setWorkingTitle] = useState(todo.title);

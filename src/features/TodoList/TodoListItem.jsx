@@ -1,24 +1,7 @@
-// function TodoListItem ( {todo, onCompleteTodo}) {
 
-//   return(
-
-//   <li>
-//     <li> {todo.title} </li> 
-//       <input
-//         type="checkbox"
-//         checked={todo.isCompleted}
-//         onChange={() => onCompleteTodo(todo.id)}
-//       />
-//       {todo.title}
-//   </li>
-// );
-
-
-// }
-
-import { useState } from "react";
-import TextInputWithLabel from "../shared/TextInputWithLabel";
-
+import { useState } from 'react';
+import TextInputWithLabel from './shared/TextInputWithLabel';
+import validateTodo from "../../utils/todoValidation.js";
 export default function TodoListItem({ todo }) {
   const [isEditing, setIsEditing] = useState(false);
 
