@@ -14,7 +14,7 @@ function TodoList({ todoList, onCompleteTodo }) {
     ) : (
       <ul>
         <TodoList
-          todoList={todoList}
+          todolist={todoList}
            onCompleteTodo={completeTodo}
            onUpdateTodo={updateTodo}
         />
