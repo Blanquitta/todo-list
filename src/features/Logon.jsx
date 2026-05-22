@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 //   async function handleSubmit(event) {
 //     event.preventDefault();
 
@@ -9,7 +9,6 @@ import { useState } from 'react';
 
 //     setIsLoggingOn(true);
 //     setAuthError('');
-
 
 // })
 
@@ -76,26 +75,25 @@ import { useState } from 'react';
 //   );
 // }
 
-
 function Logon({ onSetEmail = () => {}, onSetToken = () => {} }) {
   // Initialize state using useState
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [authError, setAuthError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [authError, setAuthError] = useState("");
   const [isLoggingOn, setIsLoggingOn] = useState(false);
 
   // Define handleSubmit function inside the component
   const handleSubmit = async (event) => {
-    event.preventDefault();  // Prevent form default submission behavior
+    event.preventDefault(); // Prevent form default submission behavior
     setIsLoggingOn(true);
-    setAuthError('');  // Clear any existing error message
+    setAuthError(""); // Clear any existing error message
 
     try {
-      const response = await fetch('/api/users/logon', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ email, password })
+      const response = await fetch("/api/users/logon", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -115,8 +113,8 @@ function Logon({ onSetEmail = () => {}, onSetToken = () => {} }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {authError && <div style={{ color: 'red' }}>{authError}</div>}
-      
+      {authError && <div style={{ color: "red" }}>{authError}</div>}
+
       <div>
         <label htmlFor="email">Email:</label>
         <input
@@ -140,7 +138,7 @@ function Logon({ onSetEmail = () => {}, onSetToken = () => {} }) {
       </div>
 
       <button type="submit" disabled={isLoggingOn}>
-        {isLoggingOn ? 'Logging in...' : 'Log On'}
+        {isLoggingOn ? "Logging in..." : "Log On"}
       </button>
     </form>
   );

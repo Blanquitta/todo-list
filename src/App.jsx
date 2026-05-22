@@ -1,5 +1,4 @@
-
-import './App.css'
+import "./App.css";
 
 import { useState } from "react";
 import TodoForm from "./features/TodoForm.jsx";
@@ -10,8 +9,8 @@ import TodosPage from "./features/Todos/TodosPage";
 
 function App() {
   // Define state variables for email and token
-  const [email, setEmail] = useState('');
-  const [token, setToken] = useState('');
+  const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
 
   return (
     <div>
@@ -32,7 +31,6 @@ export default App;
 
 // const [token, setToken] = useState('');
 
-
 //   return (
 //     <div>
 //       <Header
@@ -52,15 +50,12 @@ export default App;
 //     </div>
 //   );
 
-
-
 //  function App() {
 //   return (
 //     <>
 //       <Header />
 //       <TodosPage />
 //     </>
-
 
 //   );
 // }
@@ -76,17 +71,16 @@ export default App;
 //   function App() {
 //   const [todos, setTodos] = useState([]);
 
-
 // function addTodo(title) {
 //     const newTodo = {
 //       id: Date.now(),
-      
+
 //       title,
 //       isCompleted: false,
 //     };
 
 //     setTodos(previous => [newTodo, ...previous]);
-   
+
 //   }
 // function  completeTodo(id) {
 //   const updatedTodos = todos.map((todo)=>
@@ -103,16 +97,13 @@ export default App;
 //       <h1>My Todos</h1>
 
 //       <TodoForm onAddTodo={addTodo} />;'
-      
-      
+
 //       <TodoList todoList= {todos}
 //       onCompleteTodo={completeTodo}
-      
-      
+
 //     />
 //     </>
 //   );
-// } 
-  
-// export default  TodoList;
+// }
 
+// export default  TodoList;

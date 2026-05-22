@@ -1,5 +1,3 @@
-
-
 export default TextInputWithLabel;
 function TextInputWithLabel({ elementId, labelText, value, onChange, ref }) {
   return (
@@ -15,5 +13,3 @@ function TextInputWithLabel({ elementId, labelText, value, onChange, ref }) {
     </>
   );
 }
-
-

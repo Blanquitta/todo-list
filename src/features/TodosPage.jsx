@@ -1,5 +1,4 @@
-
-import './App.css'
+import "./App.css";
 
 import { useState } from "react";
 import TodoForm from "./features/TodoForm.jsx";
@@ -7,111 +6,79 @@ import TodoList from "./features/Todos/TodoList/todoList.js";
 
 export default function TodosPage({ token }) {
   const [todoList, setTodoList] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isTodoListLoading, setIsTodoListLoading] = useState(false);
 
-function updateTodo(editedTodo) {
-  const updatedTodos = todoList.map((todo) =>
-    todo.id === editedTodo.id
-      ? { ...editedTodo }
-      : todo
-  );
+  // function updateTodo(editedTodo) {
+  //   const updatedTodos = todoList.map((todo) =>
+  //     todo.id === editedTodo.id
+  //       ? { ...editedTodo }
+  //       : todo
+  //   );
 
-  setTodoList(updatedTodos);
+  //   setTodoList(updatedTodos);
 
-  function App() {
-  const [todos, setTodos] = useState([]);
+  // }
 
+  // function addTodo(title) {
+  //     const newTodo = {
+  //       id: Date.now(),
 
-function addTodo(title) {
-    const newTodo = {
-      id: Date.now(),
-      
-      title,
-      isCompleted: false,
-    };
+  //       title,
+  //       isCompleted: false,
+  //     };
 
-    setTodos(previous => [newTodo, ...previous]);
-   
-  }
-function  completeTodo(id) {
-  const updatedTodos = todos.map((todo)=>
-   todo.id === id
-      ? { ...todo, isCompleted: true }
-      : todo
-)
-};
-useEffect(() => {
-    async function fetchTodos() {
-      setIsTodoListLoading(true);
-      setError('');
+  //     setTodos(previous => [newTodo, ...previous]);
 
-      try {
-        const response = await fetch('/api/tasks', {
-          method: 'GET',
-          headers: {
-            'X-CSRF-TOKEN': token,
-          },
-          credentials: 'include',
-        });
+  //   }
+  // function  completeTodo(id) {
+  //   const updatedTodos = todos.map((todo)=>
+  //    todo.id === id
+  //       ? { ...todo, isCompleted: true }
+  //       : todo
+  // )
+  // };
+  // useEffect(() => {
+  //     async function fetchTodos() {
+  //       setIsTodoListLoading(true);
+  //       setError('');
 
-        if (response.status === 401) {
-          throw new Error('unauthorized');
-        }
+  //       try {
+  //         const response = await fetch('/api/tasks', {
+  //           method: 'GET',
+  //           headers: {
+  //             'X-CSRF-TOKEN': token,
+  //           },
+  //           credentials: 'include',
+  //         });
 
-        if (!response.ok) {
-          throw new Error('Something went wrong');
-        }
+  //         if (response.status === 401) {
+  //           throw new Error('unauthorized');
+  //         }
 
-        const data = await response.json();
+  //         if (!response.ok) {
+  //           throw new Error('Something went wrong');
+  //         }
 
-        setTodoList(data.tasks);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setIsTodoListLoading(false);
-      }
-    }
+  //         const data = await response.json();
 
-    fetchTodos();
-  }, [token]);
+  //         setTodoList(data.tasks);
+  //       } catch (error) {
+  //         setError(error.message);
+  //       } finally {
+  //         setIsTodoListLoading(false);
+  //       }
+  //     }
+
+  //     fetchTodos();
+  //   }, [token]);
 
   return (
-    <div className="root">
-      <h1 className="heading">Todos</h1>
-
-      {isTodoListLoading && <p>Loading todos...</p>}
-
-      {error && <p>{error}</p>}
-
-      <ul>
-        {todoList.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-
-setTodos(updatedTodos)
-
-}
-}
- return (
     <>
       <h1>My Todos</h1>
+      <TodoForm onAddTodo={addTodo} />
 
-      <TodoForm onAddTodo={addTodo} />;'
-      
-      
-      <TodoList todoList= {todos}
-      onCompleteTodo={completeTodo}
-      
-      
-    />
+      <TodoList todoList={todos} onCompleteTodo={completeTodo} />
     </>
   );
- 
-  
-export default  TodoList;
+}
