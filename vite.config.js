@@ -1,10 +1,11 @@
-import { defineConfig } from 'vite'
+// import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { defineConfig, loadEnv } from 'vite'
 
-// https://vite.dev/config/
-defineConfig({
-  plugins: [react()],
-})
+// // https://vite.dev/config/
+// defineConfig({
+//   plugins: [react()],
+// })
 
 // https://vite.dev/config/
 export default ({ mode }) => {

@@ -2,32 +2,55 @@
 
 import { useState} from 'react';
 import TodoListItem from "./TodoListItem.jsx";
-function TodoList({ todoList, onCompleteTodo }) {
+// function TodoList({ todoList, onCompleteTodo }) {
 
-    const filteredTodoList = (todoList || []).filter(
-    (todo) => !todo.isCompleted
-  );
+//     const filteredTodoList = (todoList || []).filter(
+//     (todo) => !todo.isCompleted
+//   );
 
-  return (
-    filteredTodoList.length === 0 ? (
-      <p>Add todo above to get started</p>
-    ) : (
-      <ul>
-        <TodoList
-          todolist={todoList}
-           onCompleteTodo={completeTodo}
-           onUpdateTodo={updateTodo}
-        />
-        {filteredTodoList.map((todo) => (
-          <TodoListItem
-            key={todo.id}
-            todo={todo}
-            onCompleteTodo={onCompleteTodo}
-          />
-        ))}
-      </ul>
-    )
-  );
-}
+//   return (
+//     filteredTodoList.length === 0 ? (
+//       <p>Add todo above to get started</p>
+//     ) : (
+//       <ul>
+//         <TodoList
+//           todolist={todoList}
+//            onCompleteTodo={completeTodo}
+//            onUpdateTodo={updateTodo}
+//         />
+//         {filteredTodoList.map((todo) => (
+//           <TodoListItem
+//             key={todo.id}
+//             todo={todo}
+//             onCompleteTodo={onCompleteTodo}
+//           />
+//         ))}
+//       </ul>
+//     )
+//   );
+// }
 
 export default TodoList;
+
+export default function TodoList({
+  todoList,
+  onCompleteTodo,
+  onUpdateTodo,
+}) {
+  if (todoList.length === 0) {
+    return <p>Add todo above to get started</p>;
+  }
+
+  return (
+    <ul>
+      {todoList.map((todo) => (
+        <TodoListItem
+          key={todo.id}
+          todo={todo}
+          onCompleteTodo={onCompleteTodo}
+          onUpdateTodo={onUpdateTodo}
+        />
+      ))}
+    </ul>
+  );
+}
