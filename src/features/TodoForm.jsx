@@ -1,9 +1,7 @@
 import { useState, useRef } from "react";
 import TextInputWithLabel from "../shared/TextInputWithLabel.jsx";
 import validateTodo from "../utils/todoValidation.js";
-import TodoForm from "./Todos/TodoForm";
-
-const TodoForm = ({ onAddTodo }) => {
+  const TodoForm = ({ onAddTodo }) => {
   const inputRef = useRef(null);
   const [workingTodoTitle, setWorkingTodoTitle] = useState("");
 
