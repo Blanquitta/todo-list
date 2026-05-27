@@ -1,15 +1,62 @@
-import "./App.css";-
+// import "./App.css";-
 
+// import { useState } from "react";
+// import TodoForm from "./TodoForm.jsx";
+// import TodoList from "./todoList.js";
+import SortBy from "./shared/SortBy";
+import React, { useState, useEffect, useCallback } from "react";
+import { useDebounce } from "../hooks/useDebounce";
+// new code
+export default function TodosPage({ todosPage, dataVersion }) {
 
-import { useState } from "./react";
-import TodoForm from "./features/TodoForm.jsx";
-import TodoList from "./features/Todos/TodoList/todoList.js";
-
-export default function TodosPage({ token }) {
+  const [dataVersionState, setDataVersion] = useState(0);
+  const [filterTerm, setFilterTerm] = useState("");
+  const debouncedFilterTerm = useDebounce(filterTerm, 300);
   const [todoList, setTodoList] = useState([]);
   const [error, setError] = useState("");
   const [isTodoListLoading, setIsTodoListLoading] = useState(false);
+  const invalidateCache = useCallback(() => {
+    console.log("Invalidating memo cache after todo mutation");
 
+    setDataVersion((prev) => prev + 1);
+  }, []);
+
+  const paramsObject = {
+    sortBy,
+    sortDirection,
+  };
+
+try {
+  if (debouncedFilterTerm) {
+    paramsObject.find = debouncedFilterTerm;
+  }
+  setTodoList((previous) =>
+    previous.map((todo) => (todo.id === tempId ? savedTodo : todo)),
+  );
+}
+catch (error) {
+  if (
+    debouncedFilterTerm ||
+    sortBy !== "creationDate" ||
+    sortDirection !== "desc"
+
+  ) {
+    setFilterError(`Error filtering/sorting todos: ${error.message}`);
+  } else {
+    setError(`Error fetching todos: ${error.message}`);
+  }
+} finally {
+  invalidateCache();
+}
+// new code
+const params = new URLSearchParams(paramsObject);
+
+async function fetchTodos() {
+  setIsTodoListLoading(true);
+}
+  // const resp = await fetch(`/api/tasks?${params}`, options);
+
+  // new
   function updateTodo(editedTodo) {
     const updatedTodos = todoList.map((todo) =>
       todo.id === editedTodo.id ? { ...editedTodo } : todo,
@@ -33,11 +80,15 @@ export default function TodosPage({ token }) {
       todo.id === id ? { ...todo, isCompleted: true } : todo,
     );
   }
+ 
   useEffect(() => {
+  fetchTodos();
+}, [token, fetchTodos]);
+
     async function fetchTodos() {
       setIsTodoListLoading(true);
       setError("");
-    
+
       try {
         const response = await fetch("/api/tasks", {
           method: "GET",
@@ -46,7 +97,7 @@ export default function TodosPage({ token }) {
           },
           credentials: "include",
         });
-      
+
         if (response.status === 401) {
           throw new Error("unauthorized");
         }
@@ -58,15 +109,20 @@ export default function TodosPage({ token }) {
         const data = await response.json();
 
         setTodoList(data.tasks);
-    }catch (error) {
+      }
+      catch (error) {
         setError(error.message);
       } finally {
         setIsTodoListLoading(false);
-      }
-    }
 
-    fetchTodos();
-  }, [token]);
+      }
+
+  //   fetchTodos();
+  // // }, 
+  
+  // // [token]);
+
+
 
   return (
     <>
@@ -74,6 +130,7 @@ export default function TodosPage({ token }) {
       <TodoForm onAddTodo={addTodo} />
 
       <TodoList todoList={todos} onCompleteTodo={completeTodo} />
+        
     </>
-  );
-}
+  )
+    }
