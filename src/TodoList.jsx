@@ -1,19 +1,19 @@
 
 import TodoForm from "./TodoForm";
+import TodoListItem from "./TodoListItem";
 
 
-function TodoList() {
-     const todoList = [
-    {id: 1, title: "review resources"},
-    {id: 2, title: "take notes"},
-    {id: 3, title: "code out app"},
-]
+function TodoList({todoList}) {
+     
 
+ const count = []
     return (
 
       <>
       <ul>
-        {todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
+       <h1> My Todo </h1>
+        
+        {todoList.map((todo )=>(<TodoListItem key={todo.id} todo={todo} /> ))};
       </ul>
     </>
   )
