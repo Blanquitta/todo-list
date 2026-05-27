@@ -1,17 +1,14 @@
-function TodoListItem ( {todo, onCompleteTodo}) {
-
-  return <li> {todo.title} </li> 
+function TodoListItem({ todo, onCompleteTodo }) {
+  <li> {todo.title} </li>;
   return (
-  <li>
+    <li>
       <input
         type="checkbox"
         checked={todo.isCompleted}
         onChange={() => onCompleteTodo(todo.id)}
       />
       {todo.title}
-  </li>
-);
-
-
+    </li>
+  );
 }
 export default TodoListItem;
