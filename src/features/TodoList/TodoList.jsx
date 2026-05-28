@@ -1,15 +1,9 @@
-
-
-import { useState} from 'react';
-import TodoListItem from "./TodoListItem.jsx";
+// import { useState} from 'react';
+// import TodoListItem from "./TodoListItem.jsx";
+import TodoList from "./TodoListItem.jsx";
 
 export default TodoList;
-
-export default function TodoList({
-  todoList,
-  onCompleteTodo,
-  onUpdateTodo,
-}) {
+function TodoListItem({ todoList, onCompleteTodo, onUpdateTodo }) {
   if (todoList.length === 0) {
     return <p>Add todo above to get started</p>;
   }
