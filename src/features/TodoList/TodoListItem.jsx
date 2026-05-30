@@ -1,12 +1,10 @@
-z
 
-// import validateTodo from "../../../utils/todoValidation.js";
-// import { useState, useCallback, useMemo } from "react";
+
+
 
 import TextInputWithLabel from "../../../shared/TextInputWithLabel.jsx";
 import { useMemo } from "react";
-import todoList from "./TodoList";
-// import { useState } from "react";
+import todoList from "./TodoList"
 
 export default function TodoList({ todoList, dataVersion }) {
   const filteredTodoList = useMemo(() => {

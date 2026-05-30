@@ -1,93 +1,119 @@
-// import "./App.css";-
-
-import { useState } from "react";
-// import TodoForm from "./TodoForm.jsx";
 import TodoList from "./todoList.js";
-// import SortBy from "./shared/SortBy";
-import React, { useState, useEffect, useCallback } from "react";
-import { useDebounce } from "./hooks/useDebounce";
-// // new code
+
+import { useState, useEffect, useCallback } from "react";
+
+import TodoForm from "./TodoForm";
+import TodoList from "./TodoList";
+
 export default function TodosPage({ todosPage, dataVersion }) {
-const [dataVersionState, setDataVersion] = useState(0);
-const [filterTerm, setFilterTerm] = useState("");
-const debouncedFilterTerm = useDebounce(filterTerm, 300);
-const [todoList, setTodoList] = useState([]);
-const [error, setError] = useState("");
-const [isTodoListLoading, setIsTodoListLoading] = useState(false);
-const invalidateCache = useCallback(() => {
-  console.log("Invalidating memo cache after todo mutation");
+  const [dataVersionState, setDataVersion] = useState(0);
+  const [filterTerm, setFilterTerm] = useState("");
+  const debouncedFilterTerm = useDebounce(filterTerm, 300);
+  const [todoList, setTodoList] = useState([]);
+  const [error, setError] = useState("");
+  const [isTodoListLoading, setIsTodoListLoading] = useState(false);
+  const [sortBy, setSortBy] = useState("creationDate"); // Default sorting by creation date
+  const [sortDirection, setSortDirection] = useState("desc"); // Default descending order
+  const fetchTodos = async () => {
+    try {
+      const params = new URLSearchParams({
+        sortBy,
+        sortDirection,
+      });
 
-  setDataVersion((prev) => prev + 1);
-}, []);
+      const response = await fetch(`${TODOS_ENDPOINT}?${params.toString()}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-const paramsObject = {
-  sortBy,
-  sortDirection,
-};
+      const data = await response.json();
+      setTodoList(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const invalidateCache = useCallback(() => {
+    console.log("Invalidating memo cache after todo mutation");
+    // new codeadded
 
-try {
-  if (debouncedFilterTerm) {
-    paramsObject.find = debouncedFilterTerm;
-  }
-  setTodoList((previous) =>
-    previous.map((todo) => (todo.id === tempId ? savedTodo : todo)),
-  );
-} catch (error) {
-  if (
-    debouncedFilterTerm ||
-    sortBy !== "creationDate" ||
-    sortDirection !== "desc"
-  ) {
-    setFilterError(`Error filtering/sorting todos: ${error.message}`);
-  } else {
-    setError(`Error fetching todos: ${error.message}`);
-  }
-} finally {
-  invalidateCache();
-}
-// new code
-const params = new URLSearchParams(paramsObject);
+    const fetchTodos = async () => {
+      const params = new URLSearchParams({
+        sortBy,
+        sortDirection,
+      });
 
-async function fetchTodos() {
-  setIsTodoListLoading(true);
-}
-// const resp = await fetch(`/api/tasks?${params}`, options);
+      const response = await fetch(`/api/tasks?${params}`);
+      // Handle the response, like setting the state for your todos
+    };
+    // new code added
+    useEffect(() => {
+      fetchTodos();
+    }, [sortBy, sortDirection]);
 
-// new
-function updateTodo(editedTodo) {
-  const updatedTodos = todoList.map((todo) =>
-    todo.id === editedTodo.id ? { ...editedTodo } : todo,
-  );
+    setDataVersion((prev) => prev + 1);
+  }, []);
 
-  setTodoList(updatedTodos);
-}
-
-function addTodo(title) {
-  const newTodo = {
-    id: Date.now(),
-
-    title,
-    isCompleted: false,
+  const paramsObject = {
+    sortBy,
+    sortDirection,
   };
 
-  setTodos((previous) => [newTodo, ...previous]);
-}
-function completeTodo(id) {
-  const updatedTodos = todos.map((todo) =>
-    todo.id === id ? { ...todo, isCompleted: true } : todo,
-  );
-}
+  try {
+    if (debouncedFilterTerm) {
+      paramsObject.find = debouncedFilterTerm;
+    }
+    setTodoList((previous) =>
+      previous.map((todo) => (todo.id === tempId ? savedTodo : todo)),
+    );
+  } catch (error) {
+    if (
+      debouncedFilterTerm ||
+      sortBy !== "creationDate" ||
+      sortDirection !== "desc"
+    ) {
+      setFilterError(`Error filtering/sorting todos: ${error.message}`);
+    } else {
+      setError(`Error fetching todos: ${error.message}`);
+    }
+  } finally {
+    invalidateCache();
+  }
+  // new code
+  const params = new URLSearchParams(paramsObject);
 
-useEffect(() => {
-  fetchTodos();
-}, [token, fetchTodos]);
+  // const resp = await fetch(`/api/tasks?${params}`, options);
 
-// async function fetchTodos() {
-//   setIsTodoListLoading(true);
-//   setError("");
+  // new
+  function updateTodo(editedTodo) {
+    const updatedTodos = todoList.map((todo) =>
+      todo.id === editedTodo.id ? { ...editedTodo } : todo,
+    );
+
+    setTodoList(updatedTodos);
+  }
+
+  function addTodo(title) {
+    const newTodo = {
+      id: Date.now(),
+
+      title,
+      isCompleted: false,
+    };
+
+    setTodos((previous) => [newTodo, ...previous]);
+  }
+  function completeTodo(id) {
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, isCompleted: true } : todo,
+    );
+  }
+
+  setError("");
 
   try {
-    const response =  async;  fetch("/api/tasks", {
+    const response = async;
+    fetch("/api/tasks", {
       method: "GET",
       headers: {
         "X-CSRF-TOKEN": token,
@@ -115,14 +141,14 @@ useEffect(() => {
   //   fetchTodos();
   // // },
 
-  // // [token]);
+  // [token]);
 
-return ( 
+  return (
     <>
       <h1>My Todos</h1>
       <TodoForm onAddTodo={addTodo} />
 
-      <TodoList todoList={odos} onCompleteTodo={completeTodo} />
+      <TodoList todoList={todos} onCompleteTodo={completeTodo} />
     </>
   );
 }

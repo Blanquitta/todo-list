@@ -10,7 +10,23 @@ export default function SortBy({
   onSortDirectionChange,
   filterTerm,
   onFilterChange,
-}) {
+  
+
+}) 
+const paramsObject = {
+  sortBy,
+  sortDirection,
+};
+
+    
+if (debouncedFilterTerm) {
+  paramsObject.find = debouncedFilterTerm;
+}
+
+const params = new URLSearchParams(paramsObject);
+
+function FilterInput({ filterTerm, onFilterChange }) {
+  return (
     <div>
   <label htmlFor="filter-term">Filter todos</label>
 
@@ -19,8 +35,12 @@ export default function SortBy({
     type="text"
     value={filterTerm}
     onChange={(event) => onFilterChange(event.target.value)}
+     placeholder="Search by title..."
   />
 </div>
+  )
+}
+
 
 
 
