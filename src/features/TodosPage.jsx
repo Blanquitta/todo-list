@@ -1,9 +1,6 @@
-import "./App.css";-
-
-
-import { useState } from "./react";
-import TodoForm from "./features/TodoForm.jsx";
-import TodoList from "./features/Todos/TodoList/todoList.js";
+import { useState } from "react";
+import TodoForm from "src/features/TodoForm.jsx";
+import TodoList from "src/features/TodoList/TodoList.jsx";
 
 export default function TodosPage({ token }) {
   const [todoList, setTodoList] = useState([]);
@@ -37,7 +34,7 @@ export default function TodosPage({ token }) {
     async function fetchTodos() {
       setIsTodoListLoading(true);
       setError("");
-    
+
       try {
         const response = await fetch("/api/tasks", {
           method: "GET",
@@ -46,7 +43,7 @@ export default function TodosPage({ token }) {
           },
           credentials: "include",
         });
-      
+
         if (response.status === 401) {
           throw new Error("unauthorized");
         }
@@ -58,7 +55,7 @@ export default function TodosPage({ token }) {
         const data = await response.json();
 
         setTodoList(data.tasks);
-    }catch (error) {
+      } catch (error) {
         setError(error.message);
       } finally {
         setIsTodoListLoading(false);
