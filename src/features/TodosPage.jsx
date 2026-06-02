@@ -3,6 +3,21 @@ import TodoList from "./TodoList/TodoListItem";
 import TodoForm from "./TodoForm";
 import SortBy from "../shared/SortBy.jsx";
 import useDebounce from "./useDebounce.js";
+const initialState = {
+  todoList: [],
+  error: "",
+  filterError: "",
+  isTodoListLoading: false,
+  sortBy: "creationDate",
+  sortDirection: "desc",
+  filterTerm: "",
+  dataVersion: 0,
+};
+import {
+  todoReducer,
+  initialTodoState,
+  TODO_ACTIONS,
+} from "../../reducers/todoReducer";
 
 export default function TodosPage() {
   const [todoList, setTodoList] = useState([]);
