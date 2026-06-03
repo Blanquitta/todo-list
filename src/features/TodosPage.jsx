@@ -3,7 +3,12 @@ import TodoList from "./TodoList/TodoListItem";
 import TodoForm from "./TodoForm";
 import SortBy from "../shared/SortBy.jsx";
 import useDebounce from "./useDebounce.js";
-
+export function todoReducer(state, action) {
+  console.log('Dispatched action:', action.type, action.payload); // Remove this before committing
+  switch (action.type) {
+    // ... your cases
+  }
+}
 import {
   todoReducer,
   initialTodoState,
@@ -149,6 +154,12 @@ case TODO_ACTIONS.FETCH_START:
         sortDirection={sortDirection}
         filterTerm={filterTerm}
         onSortByChange={setSortBy}
+        onSortByChange={(newSortBy) =>
+  dispatch({
+    type: TODO_ACTIONS.SET_SORT,
+    payload: { sortBy: newSortBy, sortDirection },
+  })
+}
         onSortDirectionChange={setSortDirection}
         onFilterChange={handleFilterChange}
       />
