@@ -3,6 +3,23 @@ import TodoList from "./TodoList/TodoListItem";
 import TodoForm from "./TodoForm";
 import SortBy from "../shared/SortBy.jsx";
 import useDebounce from "./useDebounce.js";
+
+import {
+  todoReducer,
+  initialTodoState,
+  TODO_ACTIONS,
+} from '../../reducers/todoReducer'
+const [state, dispatch] = useReducer(todoReducer, initialTodoState);
+const {
+  todoList,
+  error,
+  filterError,
+  isTodoListLoading,
+  sortBy,
+  sortDirection,
+  filterTerm,
+  dataVersion,
+} = state;
 const initialState = {
   todoList: [],
   error: "",
@@ -18,6 +35,14 @@ import {
   initialTodoState,
   TODO_ACTIONS,
 } from "../../reducers/todoReducer";
+export function todoReducer(state, action) {
+  switch (action.type) {
+    // We'll add cases here
+    default:
+      throw new Error(`Unknown action type: ${action.type}`);
+  }
+}
+
 
 export default function TodosPage() {
   const [todoList, setTodoList] = useState([]);
@@ -44,7 +69,13 @@ export default function TodosPage() {
   };
   const fetchTodos = useCallback(async () => {
     setIsTodoListLoading(true);
-
+case TODO_ACTIONS.FETCH_START:
+  return {
+    ...state,
+    isTodoListLoading: true,
+    error: '',
+    filterError: '',
+  };
     try {
       const paramsObject = {
         sortBy,
