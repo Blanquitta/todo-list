@@ -1,5 +1,7 @@
 import { useState } from "react";
-function Logon({ onSetEmail = () => {}, onSetToken = () => {} }) {
+import { useAuth } from "../contexts/AuthContext";
+
+function ({ onSetEmail = useAuth() => {}, onSetToken = () => {} }) {
   // Initialize state using useState
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

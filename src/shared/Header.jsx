@@ -2,6 +2,7 @@ import React from "react";
 
 // Define the Header component
 function Header() {
+  const { isAuthenticated } = useAuth();
   return (
     <header>
       <h1>Todo List</h1>

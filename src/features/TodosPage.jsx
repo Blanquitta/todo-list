@@ -4,11 +4,11 @@ import TodoForm from "./TodoForm";
 import SortBy from "../shared/SortBy.jsx";
 import useDebounce from "./useDebounce.js";
 export function todoReducer(state, action) {
-  console.log('Dispatched action:', action.type, action.payload); // Remove this before committing
-  switch (action.type) {
-    // ... your cases
-  }
-}
+//   console.log('Dispatched action:', action.type, action.payload); // Remove 
+//   switch (action.type) {
+//     // ... your cases
+//   }
+// }
 import {
   todoReducer,
   initialTodoState,
@@ -49,17 +49,17 @@ export function todoReducer(state, action) {
 }
 
 
-export default function TodosPage() {
-  const [todoList, setTodoList] = useState([]);
-  const [error, setError] = useState("");
-  const [filterError, setFilterError] = useState("");
-  const [isTodoListLoading, setIsTodoListLoading] = useState(false);
+// export default function TodosPage() {
+//   const [todoList, setTodoList] = useState([]);
+//   const [error, setError] = useState("");
+//   const [filterError, setFilterError] = useState("");
+//   const [isTodoListLoading, setIsTodoListLoading] = useState(false);
 
-  const [sortBy, setSortBy] = useState("creationDate");
-  const [sortDirection, setSortDirection] = useState("desc");
-  const [filterTerm, setFilterTerm] = useState("");
+//   const [sortBy, setSortBy] = useState("creationDate");
+//   const [sortDirection, setSortDirection] = useState("desc");
+//   const [filterTerm, setFilterTerm] = useState("");
 
-  const [dataVersion, setDataVersion] = useState(0);
+//   const [dataVersion, setDataVersion] = useState(0);
 
   const debouncedFilterTerm = useDebounce(filterTerm, 300);
 
@@ -74,13 +74,7 @@ export default function TodosPage() {
   };
   const fetchTodos = useCallback(async () => {
     setIsTodoListLoading(true);
-case TODO_ACTIONS.FETCH_START:
-  return {
-    ...state,
-    isTodoListLoading: true,
-    error: '',
-    filterError: '',
-  };
+
     try {
       const paramsObject = {
         sortBy,
@@ -177,4 +171,131 @@ case TODO_ACTIONS.FETCH_START:
       />
     </>
   );
+}
+
+      dispatch({ type: TODO_ACTIONS.FETCH_START });
+
+      dispatch({
+  type: TODO_ACTIONS.FETCH_SUCCESS,
+  payload: { todos },
+});
+
+dispatch({
+  type: TODO_ACTIONS.FETCH_ERROR,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});
+ export function todoReducer(state, action) {
+  switch (action.type) {
+    case TODO_ACTIONS.FETCH_START:
+      return {...};
+
+    default:
+      return state;
+  }
+}
+dispatch({
+  type: TODO_ACTIONS.FETCH_START,
+});
+dispatch({
+  type: TODO_ACTIONS.ADD_TODO_START,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});
+dispatch({
+  type: TODO_ACTIONS.ADD_TODO_SUCCESS,
+  payload: newTodo,
+});
+dispatch({
+  type: TODO_ACTIONS.ADD_TODO_ERROR,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});dispatch({
+  type: TODO_ACTIONS.COMPLETE_TODO_START,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});
+
+dispatch({
+  type: TODO_ACTIONS.FETCH_SUCCESS,
+  payload: data.tasks || data,
+});
+dispatch({
+  type: TODO_ACTIONS.COMPLETE_TODO_ERROR,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});dispatch({
+  type: TODO_ACTIONS.UPDATE_TODO_START,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});dispatch({
+  type: TODO_ACTIONS.UPDATE_TODO_SUCCESS,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});
+dispatch({
+  type: TODO_ACTIONS.COMPLETE_TODO_SUCCESS,
+  payload: id,
+});
+dispatch({
+  type: TODO_ACTIONS.UPDATE_TODO_ERROR,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});
+dispatch({
+  type: TODO_ACTIONS.FETCH_ERROR,
+  payload: {
+    message: error.message,
+    isFilterError:
+      debouncedFilterTerm ||
+      sortBy !== "creationDate" ||
+      sortDirection !== "desc",
+  },
+});
+dispatch({
+  type: TODO_ACTIONS.SET_SORT,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});;dispatch({
+  type: TODO_ACTIONS.SET_FILTER,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});dispatch({
+  type: TODO_ACTIONS.CLEAR_ERROR,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});;dispatch({
+  type: TODO_ACTIONS.RESET_FILTERS,
+  payload: {
+    message: `Error fetching todos: ${error.message}`,
+    isFilterError: false,
+  },
+});
+onSortByChange={(newSortBy) =>
+  dispatch({
+    type: TODO_ACTIONS.SET_SORT,
+    payload: { sortBy: newSortBy, sortDirection },
+  })
 }

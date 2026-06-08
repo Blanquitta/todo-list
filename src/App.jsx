@@ -8,6 +8,7 @@ import Header from "./shared/Header";
 
 function App() {
   //  email and token store\age
+  const { isAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
 
