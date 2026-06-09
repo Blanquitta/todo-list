@@ -20,13 +20,14 @@ function App() {
       todo.id === id ? { ...todo, isCompleted: true } : todo,
     );
     setTodos(updatedTodos);
+    console.log(updatedTodos);
   }
   return (
     <>
       <h1>My Todos</h1>
 
       <TodoForm onAddTodo={addTodo} />
-      <TodoList TodoList={TodoList} oncompleteTodo={completeTodo} />
+      <TodoList todoList={todos} onCompleteTodo={completeTodo} />
     </>
   );
 }
