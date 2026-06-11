@@ -1,9 +1,5 @@
-
-
-
 import { useState, useRef } from "react";
 import TextInputWithLabel from "../shared/TextInputWithLabel.jsx";
-import validateTodo from "../utils/todoValidation.js";
 
 const TodoForm = ({ onAddTodo }) => {
   const inputRef = useRef(null);
@@ -22,7 +18,6 @@ const TodoForm = ({ onAddTodo }) => {
     <form onSubmit={handleAddTodo}>
       <label htmlFor="todoTitle">Todo</label>
 
-      
       <TextInputWithLabel
         elementId="todoTitle"
         type="text"
@@ -31,10 +26,7 @@ const TodoForm = ({ onAddTodo }) => {
         ref={inputRef}
       />
 
-      <button
-        type="submit"
-        disabled={!validateTodo(workingTodoTitle)}
-      >
+      <button type="submit" disabled={!validateTodo(workingTodoTitle)}>
         Add Todo
       </button>
     </form>
