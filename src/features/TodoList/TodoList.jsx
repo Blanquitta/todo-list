@@ -1,0 +1,29 @@
+import { useState } from "react";
+import TodoListItem from "./TodoListItem.jsx";
+function TodoList({ todoList, onCompleteTodo }) {
+  const filteredTodoList = (todoList || []).filter((todo) => !todo.isCompleted);
+  const updatedTodo = {
+    ...todo,
+    isCompleted: true,
+  };
+  return filteredTodoList.length === 0 ? (
+    <p>Add todo above to get started</p>
+  ) : (
+    <ul>
+      <TodoList
+        todoList={todoList}
+        onCompleteTodo={completeTodo}
+        onUpdateTodo={updateTodo}
+      />
+      {filteredTodoList.map((todo) => (
+        <TodoListItem
+          key={todo.id}
+          todo={todo}
+          onCompleteTodo={onCompleteTodo}
+        />
+      ))}
+    </ul>
+  );
+}
+
+export default TodoList;
