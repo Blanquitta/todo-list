@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TodoForm from "src/features/TodoForm.jsx";
-// import TodoList from "src/features/TodoList/TodoList.jsx";
-import TodoList from "./features/TodoList/TodoList.jsx";
+import TodoList from "src/features/TodoList/TodoList.jsx";
+
 export default function TodosPage({ token }) {
   const [todoList, setTodoList] = useState([]);
   const [error, setError] = useState("");
@@ -70,8 +70,7 @@ export default function TodosPage({ token }) {
       <h1>My Todos</h1>
       <TodoForm onAddTodo={addTodo} />
 
-      <TodoList todoList={
-        todos} onCompleteTodo={completeTodo} />
+      <TodoList todoList={todos} onCompleteTodo={completeTodo} />
     </>
   );
 }

@@ -14,6 +14,7 @@ function App() {
       {/* Always render the Header */}
 
       <Header />
+      <input value={email} onChange={(e) => setEmail(e.target.value)} />
 
       {/* Conditional rendering based on the token */}
       {token ? (
