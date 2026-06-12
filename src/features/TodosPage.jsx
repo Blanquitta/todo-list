@@ -1,154 +1,92 @@
-import TodoList from "./todoList.js";
-
+// }
 import { useState, useEffect, useCallback } from "react";
 
 import TodoForm from "./TodoForm";
-import TodoList from "./TodoList";
 
-export default function TodosPage({ todosPage, dataVersion }) {
-  const [dataVersionState, setDataVersion] = useState(0);
-  const [filterTerm, setFilterTerm] = useState("");
-  const debouncedFilterTerm = useDebounce(filterTerm, 300);
+export default function TodosPage({ token }) {
+  //  local state
   const [todoList, setTodoList] = useState([]);
   const [error, setError] = useState("");
   const [isTodoListLoading, setIsTodoListLoading] = useState(false);
-  const [sortBy, setSortBy] = useState("creationDate"); // Default sorting by creation date
-  const [sortDirection, setSortDirection] = useState("desc"); // Default descending order
-  const fetchTodos = async () => {
+
+  // state order
+  const [sortBy, setSortBy] = useState("creationDate");
+  const [sortDirection, setSortDirection] = useState("desc");
+
+  // 2. feth API sortBy y sortDirection
+  const fetchTodos = useCallback(async () => {
+    setIsTodoListLoading(true);
+    setError("");
     try {
+      // URL using state
       const params = new URLSearchParams({
-        sortBy,
-        sortDirection,
+        sortBy: sortBy,
+        sortDirection: sortDirection,
       });
 
-      const response = await fetch(`${TODOS_ENDPOINT}?${params.toString()}`, {
+      const response = await fetch(`/api/tasks?${params.toString()}`, {
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN": token,
         },
       });
 
+      if (response.status === 401) throw new Error("Unauthorized");
+      if (!response.ok) throw new Error("Something went wrong");
+
       const data = await response.json();
-      setTodoList(data);
-    } catch (error) {
-      console.error(error);
+
+      setTodoList(data.tasks || data);
+    } catch (err) {
+      setError(`Error fetching todos: ${err.message}`);
+    } finally {
+      setIsTodoListLoading(false);
     }
-  };
-  const invalidateCache = useCallback(() => {
-    console.log("Invalidating memo cache after todo mutation");
-    // new codeadded
+  }, [sortBy, sortDirection, token]); //execute token
 
-    const fetchTodos = async () => {
-      const params = new URLSearchParams({
-        sortBy,
-        sortDirection,
-      });
+  useEffect(() => {
+    fetchTodos();
+  }, [fetchTodos]);
 
-      const response = await fetch(`/api/tasks?${params}`);
-      // Handle the response, like setting the state for your todos
-    };
-    // new code added
-    useEffect(() => {
-      fetchTodos();
-    }, [sortBy, sortDirection]);
-
-    setDataVersion((prev) => prev + 1);
-  }, []);
-
-  const paramsObject = {
-    sortBy,
-    sortDirection,
-  };
-
-  try {
-    if (debouncedFilterTerm) {
-      paramsObject.find = debouncedFilterTerm;
-    }
-    setTodoList((previous) =>
-      previous.map((todo) => (todo.id === tempId ? savedTodo : todo)),
-    );
-  } catch (error) {
-    if (
-      debouncedFilterTerm ||
-      sortBy !== "creationDate" ||
-      sortDirection !== "desc"
-    ) {
-      setFilterError(`Error filtering/sorting todos: ${error.message}`);
-    } else {
-      setError(`Error fetching todos: ${error.message}`);
-    }
-  } finally {
-    invalidateCache();
-  }
-  // new code
-  const params = new URLSearchParams(paramsObject);
-
-  // const resp = await fetch(`/api/tasks?${params}`, options);
-
-  // new
-  function updateTodo(editedTodo) {
-    const updatedTodos = todoList.map((todo) =>
-      todo.id === editedTodo.id ? { ...editedTodo } : todo,
-    );
-
-    setTodoList(updatedTodos);
-  }
-
+  // interaction functions
   function addTodo(title) {
     const newTodo = {
       id: Date.now(),
-
       title,
       isCompleted: false,
     };
-
-    setTodos((previous) => [newTodo, ...previous]);
+    setTodoList((previous) => [newTodo, ...previous]);
   }
+
   function completeTodo(id) {
-    const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, isCompleted: true } : todo,
+    const updatedTodos = todoList.map((todo) =>
+      todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
     );
+    setTodoList(updatedTodos);
   }
-
-  setError("");
-
-  try {
-    const response = async;
-    fetch("/api/tasks", {
-      method: "GET",
-      headers: {
-        "X-CSRF-TOKEN": token,
-      },
-      credentials: "include",
-    });
-
-    if (response.status === 401) {
-      throw new Error("unauthorized");
-    }
-
-    if (!response.ok) {
-      throw new Error("Something went wrong");
-    }
-
-    const data = response.json();
-
-    setTodoList(data.tasks);
-  } catch (error) {
-    setError(error.message);
-  } finally {
-    setIsTodoListLoading(false);
-  }
-
-  //   fetchTodos();
-  // // },
-
-  // [token]);
 
   return (
     <>
       <h1>My Todos</h1>
+      // Control of function changes
+      <div style={{ marginBottom: "15px" }}>
+        <button onClick={() => setSortBy("title")}>Order by Title</button>
+        <button
+          onClick={() =>
+            setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+          }
+        >
+          Direction ({sortDirection})
+        </button>
+      </div>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <TodoForm onAddTodo={addTodo} />
-
-      <TodoList todoList={todos} onCompleteTodo={completeTodo} />
+      {isTodoListLoading ? (
+        <p>Loading tasks...</p>
+      ) : (
+        <TodoList todoList={todoList} onCompleteTodo={completeTodo} />
+      )}
     </>
   );
 }
