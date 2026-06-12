@@ -1,30 +1,27 @@
-import TodoForm from "./TodoForm";
-import './App.css'
-import {useState} from 'react'; 
+import "./App.css";
 
-import TodoList from './TodoList.jsx';
-  
- const todoList = [
-    {id: 1, title: "review resources"},
-    {id: 2, title: "take notes"},
-    {id: 3, title: "code out app"},
-]
-function App () {
-  const [todos, setTodos] = useState(todoList) 
+//
+import { useState } from "react";
+import Logon from "./features/Logon";
+import TodosPage from "./features/TodosPage";
+import Header from "./shared/Header";
 
+function App() {
+  //  email and token store\age
+  const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
 
-return (
+  return (
+    <div>
+      <Header />
 
-  <div>
-    <h1> My Todos</h1>
-    <TodoForm />
-    <TodoList  todoList ={todos}/>
-  </div>
-
+      {token ? (
+        <TodosPage token={token} email={email} />
+      ) : (
+        <Logon onSetEmail={setEmail} onSetToken={setToken} />
+      )}
+    </div>
   );
-
 }
-
-
 
 export default App;
