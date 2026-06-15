@@ -1,30 +1,19 @@
-import TodoForm from "./TodoForm";
-import './App.css'
-import {useState} from 'react'; 
+import Logon from "./features/Logon";
+import TodosPage from "./features/TodosPage";
+import Header from "./shared/Header";
+import { useAuth } from "./contexts/AuthContext";
 
-import TodoList from './TodoList.jsx';
+function App() {
+  const { isAuthenticated } = useAuth();
   
- const todoList = [
-    {id: 1, title: "review resources"},
-    {id: 2, title: "take notes"},
-    {id: 3, title: "code out app"},
-]
-function App () {
-  const [todos, setTodos] = useState(todoList) 
 
+  return (
+    <div>
+      <Header />
 
-return (
-
-  <div>
-    <h1> My Todos</h1>
-    <TodoForm />
-    <TodoList  todoList ={todos}/>
-  </div>
-
+      {isAuthenticated ? <TodosPage /> : <Logon />}
+    </div>
   );
-
 }
-
-
 
 export default App;
