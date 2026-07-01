@@ -1,18 +1,10 @@
-import { createContext, useContext, useState } from "react";
-import {} from "react";
+import { createContext, useState } from "react";
+import { useContext } from "react";
 
 const AuthContext = createContext();
 
-// Hook
-
-export function UseAuth() {
-  const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-
-  return context;
+export function Auth() {
+  return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {
@@ -34,7 +26,6 @@ export function AuthProvider({ children }) {
       if (res.status === 200 && data.name && data.csrfToken) {
         setEmail(data.name);
         setToken(data.csrfToken);
-
         return { success: true };
       }
 
@@ -53,7 +44,6 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     setEmail("");
     setToken("");
-
     return { success: true };
   };
 
